@@ -66,6 +66,11 @@ class Agents
      */
     private $specialitys;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Missions::class, inversedBy="agents")
+     */
+    private $mission;
+
     public function __construct()
     {
         $this->specialitys = new ArrayCollection();
@@ -168,6 +173,18 @@ class Agents
     public function removeSpeciality(Speciality $speciality): self
     {
         $this->specialitys->removeElement($speciality);
+
+        return $this;
+    }
+
+    public function getMission(): ?Missions
+    {
+        return $this->mission;
+    }
+
+    public function setMission(?Missions $mission): self
+    {
+        $this->mission = $mission;
 
         return $this;
     }

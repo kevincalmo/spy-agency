@@ -44,6 +44,11 @@ class Contacts
      */
     private $nationality;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Missions::class, inversedBy="contacts")
+     */
+    private $mission;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +110,18 @@ class Contacts
     public function setNationality(string $nationality): self
     {
         $this->nationality = $nationality;
+
+        return $this;
+    }
+
+    public function getMission(): ?Missions
+    {
+        return $this->mission;
+    }
+
+    public function setMission(?Missions $mission): self
+    {
+        $this->mission = $mission;
 
         return $this;
     }

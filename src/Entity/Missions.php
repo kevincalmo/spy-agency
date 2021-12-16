@@ -3,8 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\MissionsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=MissionsRepository::class)
@@ -48,6 +51,50 @@ class Missions
      * @ORM\Column(type="datetime")
      */
     private $end_date;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Agents::class, mappedBy="mission" )
+     */
+    private $agents;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Speciality::class, inversedBy="missions")
+     */
+    private $specialitys;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Status::class, cascade={"persist", "remove"})
+     */
+    private $status;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Stashs::class, mappedBy="missions")
+     */
+    private $stashs;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Contacts::class, mappedBy="mission")
+     */
+    private $contacts;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Targets::class, mappedBy="mission")
+     */
+    private $targets;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $type;
+
+    public function __construct()
+    {
+        $this->agents = new ArrayCollection();
+        $this->specialitys = new ArrayCollection();
+        $this->stashs = new ArrayCollection();
+        $this->contacts = new ArrayCollection();
+        $this->targets = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -122,6 +169,174 @@ class Missions
     public function setEndDate(\DateTimeInterface $end_date): self
     {
         $this->end_date = $end_date;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|agents[]
+     */
+    public function getAgents(): Collection
+    {
+        return $this->agents;
+    }
+
+    public function addAgent(agents $agent): self
+    {
+        if (!$this->agents->contains($agent)) {
+            $this->agents[] = $agent;
+            $agent->setMission($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAgent(agents $agent): self
+    {
+        if ($this->agents->removeElement($agent)) {
+            // set the owning side to null (unless already changed)
+            if ($agent->getMission() === $this) {
+                $agent->setMission(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Speciality[]
+     */
+    public function getSpecialitys(): Collection
+    {
+        return $this->specialitys;
+    }
+
+    public function addSpeciality(Speciality $speciality): self
+    {
+        if (!$this->specialitys->contains($speciality)) {
+            $this->specialitys[] = $speciality;
+        }
+
+        return $this;
+    }
+
+    public function removeSpeciality(Speciality $speciality): self
+    {
+        $this->specialitys->removeElement($speciality);
+
+        return $this;
+    }
+
+    public function getStatus(): ?Status
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?Status $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Stashs[]
+     */
+    public function getStashs(): Collection
+    {
+        return $this->stashs;
+    }
+
+    public function addStash(Stashs $stash): self
+    {
+        if (!$this->stashs->contains($stash)) {
+            $this->stashs[] = $stash;
+            $stash->setMissions($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStash(Stashs $stash): self
+    {
+        if ($this->stashs->removeElement($stash)) {
+            // set the owning side to null (unless already changed)
+            if ($stash->getMissions() === $this) {
+                $stash->setMissions(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Contacts[]
+     */
+    public function getContacts(): Collection
+    {
+        return $this->contacts;
+    }
+
+    public function addContact(Contacts $contact): self
+    {
+        if (!$this->contacts->contains($contact)) {
+            $this->contacts[] = $contact;
+            $contact->setMission($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContact(Contacts $contact): self
+    {
+        if ($this->contacts->removeElement($contact)) {
+            // set the owning side to null (unless already changed)
+            if ($contact->getMission() === $this) {
+                $contact->setMission(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Targets[]
+     */
+    public function getTargets(): Collection
+    {
+        return $this->targets;
+    }
+
+    public function addTarget(Targets $target): self
+    {
+        if (!$this->targets->contains($target)) {
+            $this->targets[] = $target;
+            $target->setMission($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTarget(Targets $target): self
+    {
+        if ($this->targets->removeElement($target)) {
+            // set the owning side to null (unless already changed)
+            if ($target->getMission() === $this) {
+                $target->setMission(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(?string $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

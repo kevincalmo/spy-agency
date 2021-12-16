@@ -34,9 +34,15 @@ class Speciality
      */
     private $agents;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Missions::class, mappedBy="specialitys")
+     */
+    private $missions;
+
     public function __construct()
     {
         $this->agents = new ArrayCollection();
+        $this->missions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -78,6 +84,33 @@ class Speciality
     {
         if ($this->agents->removeElement($agent)) {
             $agent->removeSpeciality($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Missions[]
+     */
+    public function getMissions(): Collection
+    {
+        return $this->missions;
+    }
+
+    public function addMission(Missions $mission): self
+    {
+        if (!$this->missions->contains($mission)) {
+            $this->missions[] = $mission;
+            $mission->addSpeciality($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMission(Missions $mission): self
+    {
+        if ($this->missions->removeElement($mission)) {
+            $mission->removeSpeciality($this);
         }
 
         return $this;
