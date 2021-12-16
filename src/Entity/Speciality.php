@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=SpecialityRepository::class)
@@ -18,11 +19,13 @@ class Speciality
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"read:agent"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * * @Groups({"read:agent"})
      */
     private $name;
 
