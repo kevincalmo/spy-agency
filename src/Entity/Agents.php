@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AgentsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 
@@ -48,6 +50,16 @@ class Agents
      * @ORM\Column(type="string", length=255)
      */
     private $password;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Speciality::class, inversedBy="agents")
+     */
+    private $specialitys;
+
+    public function __construct()
+    {
+        $this->specialitys = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -122,6 +134,30 @@ class Agents
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Speciality[]
+     */
+    public function getSpecialitys(): Collection
+    {
+        return $this->specialitys;
+    }
+
+    public function addSpeciality(Speciality $speciality): self
+    {
+        if (!$this->specialitys->contains($speciality)) {
+            $this->specialitys[] = $speciality;
+        }
+
+        return $this;
+    }
+
+    public function removeSpeciality(Speciality $speciality): self
+    {
+        $this->specialitys->removeElement($speciality);
 
         return $this;
     }

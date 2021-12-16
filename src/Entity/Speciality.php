@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SpecialityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 
@@ -24,6 +26,16 @@ class Speciality
      */
     private $name;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Agents::class, mappedBy="specialitys")
+     */
+    private $agents;
+
+    public function __construct()
+    {
+        $this->agents = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -37,6 +49,33 @@ class Speciality
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Agents[]
+     */
+    public function getAgents(): Collection
+    {
+        return $this->agents;
+    }
+
+    public function addAgent(Agents $agent): self
+    {
+        if (!$this->agents->contains($agent)) {
+            $this->agents[] = $agent;
+            $agent->addSpeciality($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAgent(Agents $agent): self
+    {
+        if ($this->agents->removeElement($agent)) {
+            $agent->removeSpeciality($this);
+        }
 
         return $this;
     }
