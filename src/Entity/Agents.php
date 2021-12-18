@@ -20,19 +20,19 @@ class Agents
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"read:collection"})
+     * @Groups({"read:collection","read:missions"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * * @Groups({"read:collection"})
+     * * @Groups({"read:collection","read:missions"})
      */
     private $last_name;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * * @Groups({"read:collection"})
+     * * @Groups({"read:collection","read:missions"})
      */
     private $first_name;
 
@@ -50,7 +50,7 @@ class Agents
 
     /**
      * @ORM\Column(type="string", length=255)
-     * * @Groups({"read:collection"})
+     * * @Groups({"read:collection","read:missions"})
      */
     private $nationality;
 

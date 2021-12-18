@@ -11,7 +11,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=MissionsRepository::class)
- * @ApiResource()
+ * @ApiResource(
+ * normalizationContext={"groups"={"read:missionsCollection","read:missions"}},)
  */
 class Missions
 {
@@ -19,71 +20,85 @@ class Missions
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"read:missionsCollection"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read:missionsCollection"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"read:missionsCollection"})
      */
     private $content;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read:missionsCollection"})
      */
     private $code_name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read:missionsCollection"})
      */
     private $country;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"read:missionsCollection"})
      */
     private $start_date;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"read:missionsCollection"})
      */
     private $end_date;
 
     /**
      * @ORM\OneToMany(targetEntity=Agents::class, mappedBy="mission" )
+     * @Groups({"read:missionsCollection"})
      */
     private $agents;
 
     /**
      * @ORM\ManyToMany(targetEntity=Speciality::class, inversedBy="missions")
+     * @Groups({"read:missionsCollection"})
      */
     private $specialitys;
 
     /**
      * @ORM\OneToOne(targetEntity=Status::class, cascade={"persist", "remove"})
+     * @Groups({"read:missionsCollection"})
      */
     private $status;
 
     /**
      * @ORM\OneToMany(targetEntity=Stashs::class, mappedBy="missions")
+     * @Groups({"read:missionsCollection"})
      */
     private $stashs;
 
     /**
      * @ORM\OneToMany(targetEntity=Contacts::class, mappedBy="mission")
+     * @Groups({"read:missionsCollection"})
      */
     private $contacts;
 
     /**
      * @ORM\OneToMany(targetEntity=Targets::class, mappedBy="mission")
+     * @Groups({"read:missionsCollection"})
      */
     private $targets;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"read:missionsCollection"})
      */
     private $type;
 

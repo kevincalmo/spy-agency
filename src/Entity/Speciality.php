@@ -19,13 +19,13 @@ class Speciality
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"read:agent"})
+     * @Groups({"read:agent","read:missions"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * * @Groups({"read:agent"})
+     * * @Groups({"read:agent","read:missions"})
      */
     private $name;
 

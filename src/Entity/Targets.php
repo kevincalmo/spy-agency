@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\TargetsRepository;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=TargetsRepository::class)
@@ -16,31 +17,37 @@ class Targets
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"read:missions"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read:missions"})
      */
     private $last_name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read:missions"})
      */
     private $first_name;
 
     /**
      * @ORM\Column(type="date")
+     * @Groups({"read:missions"})
      */
     private $birth_date;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read:missions"})
      */
     private $code_name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read:missions"})
      */
     private $nationality;
 

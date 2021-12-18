@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ContactsRepository;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ContactsRepository::class)
@@ -16,16 +17,19 @@ class Contacts
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"read:missions"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read:missions"})
      */
     private $last_name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read:missions"})
      */
     private $first_name;
 
@@ -36,11 +40,13 @@ class Contacts
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read:missions"})
      */
     private $code_name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read:missions"})
      */
     private $nationality;
 
