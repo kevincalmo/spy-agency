@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Missions;
+use App\Entity\Status;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -11,6 +12,8 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Missions|null findOneBy(array $criteria, array $orderBy = null)
  * @method Missions[]    findAll()
  * @method Missions[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * 
+ * @method findStatusOfMissions(Status $status)
  */
 class MissionsRepository extends ServiceEntityRepository
 {
@@ -47,4 +50,15 @@ class MissionsRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findStatusOfMissions(Status $status)
+    {
+        $queryBuilder = $this->createQueryBuilder('m')
+         ->join('m.status','s')
+         ->where('s.id= :sId')
+         ->setParameter('sId', $status->getId)
+        ;
+        $query = $queryBuilder->getQuery();
+        return $query->getResult();
+    }
 }
