@@ -9,7 +9,7 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ agent.getFirstName }} {{ agent.getLastName }}! ✅</h1>
+    <h1>Hello Agents! ✅</h1>
 
     This friendly message is coming from:
     <ul>
@@ -17,4 +17,9 @@
         <li>Your template at <code><a href="{{ '/home/blck-wlf/monDepotGit/spy-agency/templates/agents/index.html.twig'|file_link(0) }}">templates/agents/index.html.twig</a></code></li>
     </ul>
 </div>
+{{form_start(form)}}
+
+    {{form_widget(form)}}
+    <input type="submit" value="envoyer" />
+{{form_end(form)}}
 {% endblock %}
