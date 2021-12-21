@@ -13,7 +13,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Missions[]    findAll()
  * @method Missions[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  * 
- * @method findStatusOfMissions(Status $status)
+ * @method getMissionWithStatus()
  */
 class MissionsRepository extends ServiceEntityRepository
 {
@@ -51,14 +51,12 @@ class MissionsRepository extends ServiceEntityRepository
     }
     */
 
-    public function findStatusOfMissions(Status $status)
+    public function getMissionWithStatus()
     {
         $queryBuilder = $this->createQueryBuilder('m')
-         ->join('m.status','s')
-         ->where('s.id= :sId')
-         ->setParameter('sId', $status->getId)
-        ;
-        $query = $queryBuilder->getQuery();
-        return $query->getResult();
+            ->select('m,s')
+            ->leftJoin('m.status','s')
+            ->getQuery()
+            ->getResult();
     }
 }

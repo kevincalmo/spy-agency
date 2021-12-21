@@ -4,6 +4,7 @@
 
 {% block body %}
 
+
 <div class="example-wrapper container">
     <h1>Hello {{ controller_name }}! ✅</h1>
 
@@ -55,7 +56,7 @@
                     <tr>
                     <th scope="row">{{mission.getId}}</th>
                     <td>{{mission.getTitle}} : {{ mission.getCodeName}}</td>
-                    <td>{# {{mission.getStatus}} #}</td>
+                    <td>{{mission.getStatus.getName}}</td>
                     <td> 
                     <a class="btn btn-warning" href="#" role="button">Editer</a> 
                     <a class="btn btn-danger" href="#" role="button">Supprimer</a>

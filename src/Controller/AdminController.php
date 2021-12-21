@@ -31,11 +31,16 @@ class AdminController extends AbstractController
     {
         $agents = $agentsRepository->findAll();
         $missions = $missionsRepository->findAll();
+
         $contacts = $contactsRepository->findAll();
         $stashs = $stashsRepository->findAll();
         $targets = $targetsRepository->findAll();
 
-        dump($missions);
+        foreach ($missions as $mission) {
+           dump($mission->getStatus()->getName());
+        }
+
+        /* dd($missions.getStatus); */
 
         return $this->render('admin/index.html.twig', [
             'controller_name' => 'AdminController',

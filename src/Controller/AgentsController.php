@@ -7,6 +7,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use ApiPlatform\Core\Annotation\ApiResource;
 
+/**
+ * @Route("/admin")
+ */
 class AgentsController extends AbstractController
 {
     /**
