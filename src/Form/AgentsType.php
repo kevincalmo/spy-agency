@@ -26,7 +26,7 @@ class AgentsType extends AbstractType
                     'Espagne'=>'spanish'
                 ],
             ])
-            ->add('password')
+            /* ->add('password') */
             ->add('specialitys', EntityType::class, [
                 'class'=>Speciality::class,
                 'choice_label'=>'name',

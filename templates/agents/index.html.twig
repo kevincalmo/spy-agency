@@ -3,19 +3,39 @@
 {% block title %}Hello AgentsController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello Agents! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/blck-wlf/monDepotGit/spy-agency/src/Controller/AgentsController.php'|file_link(0) }}">src/Controller/AgentsController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/blck-wlf/monDepotGit/spy-agency/templates/agents/index.html.twig'|file_link(0) }}">templates/agents/index.html.twig</a></code></li>
-    </ul>
+<div class=" container">
+    <h1 class="text-center">Liste des agents ✅</h1>
+
+    {# Liste des agents #}
+        <div>
+        
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Identité</th>
+                    <th scope="col">Code Authentification</th>
+                    <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for agent in agents %}
+                    <tr>
+                    <th scope="row">{{agent.getId}}</th>
+                    <td>{{agent.getLastName}} {{agent.getFirstName}}</td>
+                    <td>{{agent.getAuthentificationCode}}</td>
+                    <td> 
+                    <a class="btn btn-warning" href="#" role="button">Editer</a> 
+                    <a class="btn btn-danger" href="#" role="button">Supprimer</a>
+                    </td>
+                    </tr>
+                    {% endfor %}
+                    
+                </tbody>
+            </table>
+        </div>
 </div>
 
 {% endblock %}

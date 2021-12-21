@@ -8,6 +8,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass=AgentsRepository::class)
@@ -27,24 +29,30 @@ class Agents
     /**
      * @ORM\Column(type="string", length=255)
      * * @Groups({"read:collection","read:missions"})
+     * @Assert\NotBlank
+     * @Assert\Length(min=3)
      */
     private $last_name;
 
     /**
      * @ORM\Column(type="string", length=255)
      * * @Groups({"read:collection","read:missions"})
+     * @Assert\NotBlank
+     * @Assert\Length(min=3)
      */
     private $first_name;
 
     /**
      * @ORM\Column(type="date")
-     * * @Groups({"read:collection"})
+     * @Groups({"read:collection"})
      */
     private $birth_date;
 
     /**
      * @ORM\Column(type="string", length=20)
      * * @Groups({"read:collection"})
+     * @Assert\Length(min=20)
+     * @Assert\NotBlank
      */
     private $authentification_code;
 
