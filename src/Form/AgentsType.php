@@ -3,7 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Agents;
+use App\Entity\Speciality;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,9 +20,18 @@ class AgentsType extends AbstractType
             ->add('first_name')
             ->add('birth_date')
             ->add('authentification_code')
-            ->add('nationality')
+            ->add('nationality', ChoiceType::class, [
+                'choices' => [
+                    'France'=> 'french',
+                    'Espagne'=>'spanish'
+                ],
+            ])
             ->add('password')
-            /* ->add('specialitys') */
+            ->add('specialitys', EntityType::class, [
+                'class'=>Speciality::class,
+                'choice_label'=>'name',
+                'multiple'=> true,
+            ])
             /* ->add('mission') */
         ;
     }

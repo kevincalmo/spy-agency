@@ -61,7 +61,7 @@ class Agents
     private $password;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Speciality::class, inversedBy="agents")
+     * @ORM\ManyToMany(targetEntity=Speciality::class, inversedBy="agents", cascade={"persist"})
      * @Groups({"read:collection"})
      */
     private $specialitys;

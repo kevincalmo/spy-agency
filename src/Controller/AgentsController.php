@@ -27,6 +27,9 @@ class AgentsController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/add-agent" , name="add-agent")
+     */
     public function addAgent(Request $request)
     {
         $agent = new Agents;
@@ -38,7 +41,7 @@ class AgentsController extends AbstractController
             dd($agent);
         }
     
-        return $this->render('agents/index.html.twig', [
+        return $this->render('agents/add-agent.html.twig', [
            'form'=>$form->createView(),
         ]);
     }
