@@ -9,9 +9,11 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Form\AgentsType;
 use App\Repository\AgentsRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use phpDocumentor\Reflection\Types\Void_;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+
 
 /**
  * @Route("/admin")
@@ -36,7 +38,7 @@ class AgentsController extends AbstractController
      */
     public function addAgent(Request $request,
                              ValidatorInterface $validatorInterface,
-                             UserPasswordEncoderInterface $passwordEncoder)
+                             UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $agent = new Agents;
         $form = $this->createForm(AgentsType::class,$agent);
@@ -48,10 +50,41 @@ class AgentsController extends AbstractController
                 $entityManager->persist($agent);
                 $entityManager->flush();
             }
+
+            
         
         
         return $this->render('agents/add-agent.html.twig', [
            'form'=>$form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/edit-agent/{id}" , name="edit-agent")
+     */
+    public function editAgent($id ,
+                             Request $request,
+                             UserPasswordEncoderInterface $passwordEncoder,
+                             AgentsRepository $agentsRepository): Response
+    {
+        $agent = $agentsRepository->find($id);
+        $form = $this->createForm(AgentsType::class,$agent);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager = $this->getdoctrine()->getManager();
+            $entityManager->flush();
+            return $this->redirectToRoute("agents");
+        }
+
+            
+        
+        
+        return $this->render('agents/edit-agent.html.twig', [
+           'form'=>$form->createView(),
+        ]);
+    }
+
+
 }
