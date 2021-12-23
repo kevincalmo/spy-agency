@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AgentsController!{% endblock %}
+
+{% block body %}
+
+<div class="example-wrapper">
+    <h1>{{function}} {{type}}! ✅</h1>
+
+
+{{form_start(form)}}
+
+    {{form_widget(form)}}
+    <input class="btn btn-success" type="submit" value="envoyer" />
+
+{{form_end(form)}}
+{% endblock %}
+{% block javascript %}
+<script src="/public/javascript/app.js"></script>
+{% endblock %}
