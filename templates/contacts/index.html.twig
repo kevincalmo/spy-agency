@@ -8,13 +8,37 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
+
 <div class="example-wrapper">
     <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/blck-wlf/monDepotGit/spy-agency/src/Controller/ContactsController.php'|file_link(0) }}">src/Controller/ContactsController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/blck-wlf/monDepotGit/spy-agency/templates/contacts/index.html.twig'|file_link(0) }}">templates/contacts/index.html.twig</a></code></li>
-    </ul>
+    {# Liste des contacts #}
+        <div>
+            <h3>Liste des contacts</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Identité</th>
+                    <th scope="col">Nom de code</th>
+                    <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for contact in contacts %}
+                    <tr>
+                    <th scope="row">{{contact.getId}}</th>
+                    <td>{{contact.getLastName}} {{ contact.getFirstName}}</td>
+                    <td>{{contact.getCodeName}}</td>
+                    <td> 
+                    <a class="btn btn-warning" href="#" role="button">Editer</a> 
+                    <a class="btn btn-danger" href="http://127.0.0.1:8000/api/contacts/{{contact.getId}}" role="button">Supprimer</a>
+                    </td>
+                    </tr>
+                    {% endfor %}
+                    
+                </tbody>
+            </table>
+        </div>
 </div>
 {% endblock %}
