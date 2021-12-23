@@ -29,16 +29,15 @@ class AgentsController extends AbstractController
         $agents = $agentsRepository->findAll();
     
         return $this->render('agents/index.html.twig', [
-           'agents'=> $agents,
+           'items'=> $agents,
+           'type'=>'agent',
         ]);
     }
 
     /**
      * @Route("/add-agent" , name="add-agent")
      */
-    public function addAgent(Request $request,
-                             ValidatorInterface $validatorInterface,
-                             UserPasswordEncoderInterface $passwordEncoder): Response
+    public function addAgent(Request $request): Response
     {
         $agent = new Agents;
         $form = $this->createForm(AgentsType::class,$agent);
@@ -54,18 +53,17 @@ class AgentsController extends AbstractController
             
         
         
-        return $this->render('agents/add-agent.html.twig', [
+        return $this->render('form-item.html.twig', [
            'form'=>$form->createView(),
+           'type'=>'agent',
+           'function'=>'Creer'
         ]);
     }
 
     /**
      * @Route("/edit-agent/{id}" , name="edit-agent")
      */
-    public function editAgent($id ,
-                             Request $request,
-                             UserPasswordEncoderInterface $passwordEncoder,
-                             AgentsRepository $agentsRepository): Response
+    public function editAgent($id ,Request $request, AgentsRepository $agentsRepository): Response
     {
         $agent = $agentsRepository->find($id);
         $form = $this->createForm(AgentsType::class,$agent);
@@ -79,10 +77,10 @@ class AgentsController extends AbstractController
         }
 
             
-        
-        
-        return $this->render('agents/edit-agent.html.twig', [
+        return $this->render('form-item.html.twig', [
            'form'=>$form->createView(),
+           'type'=>'agent',
+           'function'=>'Editer'
         ]);
     }
 
