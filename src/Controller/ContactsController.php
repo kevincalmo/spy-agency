@@ -52,7 +52,7 @@ class ContactsController extends AbstractController
         
         return $this->render('form-item.html.twig', [
            'form'=>$form->createView(),
-           'type'=>'agent',
+           'type'=>'contact',
            'function'=>'Creer'
         ]);
     }
