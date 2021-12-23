@@ -33,9 +33,10 @@ class MissionsType extends AbstractType
                     'Assassinat'=>'assassinat'
                 ]
             ])
-            ->add('agent', EntityType::class, [
+            ->add('agents', EntityType::class, [
                 'class'=>Agents::class,
-                'choice_label'=>'authentification_code'
+                'choice_label'=>'authentification_code',
+                'multiple'=>true,
             ])
             ->add('specialitys', EntityType::class, [
                 'class'=>Speciality::class,
