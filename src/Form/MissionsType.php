@@ -3,8 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Agents;
+use App\Entity\Contacts;
 use App\Entity\Missions;
 use App\Entity\Speciality;
+use App\Entity\Stashs;
 use App\Entity\Status;
 use App\Entity\Targets;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -44,9 +46,19 @@ class MissionsType extends AbstractType
                 'choice_label'=>'code_name',
                 'multiple'=>true,
             ])
+            ->add('stashs', EntityType::class, [
+                'class'=>Stashs::class,
+                'choice_label'=>'code',
+                'multiple'=>true,
+            ])
             ->add('specialitys', EntityType::class, [
                 'class'=>Speciality::class,
                 'choice_label'=>'name',
+                'multiple'=> true,
+            ])
+            ->add('contacts', EntityType::class, [
+                'class'=>Contacts::class,
+                'choice_label'=>'code_name',
                 'multiple'=> true,
             ])
             ->add('status', EntityType::class, [
