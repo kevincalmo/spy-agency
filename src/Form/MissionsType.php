@@ -6,6 +6,7 @@ use App\Entity\Agents;
 use App\Entity\Missions;
 use App\Entity\Speciality;
 use App\Entity\Status;
+use App\Entity\Targets;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -36,6 +37,11 @@ class MissionsType extends AbstractType
             ->add('agents', EntityType::class, [
                 'class'=>Agents::class,
                 'choice_label'=>'authentification_code',
+                'multiple'=>true,
+            ])
+            ->add('targets', EntityType::class, [
+                'class'=>Targets::class,
+                'choice_label'=>'code_name',
                 'multiple'=>true,
             ])
             ->add('specialitys', EntityType::class, [
